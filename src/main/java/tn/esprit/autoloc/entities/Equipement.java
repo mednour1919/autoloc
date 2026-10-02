@@ -1,10 +1,13 @@
-package tn.esprit.autoloc.domain;
+package tn.esprit.autoloc.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "equipement")
@@ -20,4 +23,6 @@ public class Equipement {
 
     @Column(nullable = false, length = 100)
     private String libelle;
+    @ManyToMany(mappedBy = "equipements",fetch =FetchType.LAZY)
+    private Set<Vehicule> vehicules = new HashSet<>();
 }

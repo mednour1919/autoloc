@@ -1,4 +1,4 @@
-package tn.esprit.autoloc.domain;
+package tn.esprit.autoloc.entities.enums;
 
 public enum CategorieVehicule {
     CITADINE,

@@ -1,9 +1,12 @@
-package tn.esprit.autoloc.domain;
+package tn.esprit.autoloc.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tn.esprit.autoloc.entities.enums.CategorieVehicule;
+import tn.esprit.autoloc.entities.enums.StatutVehicule;
+
 import java.math.BigDecimal;
 @Entity
 @Table(name = "vehicule")

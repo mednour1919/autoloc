@@ -16,4 +16,7 @@ public class employer {
     String prenom;
     @Enumerated(EnumType.STRING)
     Role role;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="agence_id")
+    Agence agnce;
 }
