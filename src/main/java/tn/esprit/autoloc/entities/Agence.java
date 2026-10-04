@@ -1,16 +1,12 @@
 package tn.esprit.autoloc.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "agence")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,16 +18,13 @@ public class Agence {
     private Long idAgence;
 
     private String nom;
-
     private String ville;
-
     private String adresse;
-
     private String telephone;
 
-    @OneToMany(mappedBy = "agence",fetch =FetchType.LAZY)
+    @OneToMany(mappedBy = "agence")
     private List<employer> employes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "agence",fetch =FetchType.LAZY)
+    @OneToMany(mappedBy = "agence")
     private List<Vehicule> vehicules = new ArrayList<>();
 }
