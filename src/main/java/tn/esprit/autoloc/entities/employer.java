@@ -21,4 +21,7 @@ public class employer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_agence")
     private Agence agence;
+
+    public void setIdEmployer(Long id) {
+    }
 }
