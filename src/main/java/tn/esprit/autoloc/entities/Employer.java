@@ -8,7 +8,7 @@ import lombok.Setter;
 import tn.esprit.autoloc.entities.enums.Role;
 
 @Entity@Getter@Setter@NoArgsConstructor@AllArgsConstructor
-public class employer {
+public class Employer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idemployer;

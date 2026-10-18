@@ -1,6 +1,6 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.entities.employer;
+import tn.esprit.autoloc.entities.Employer;
 import tn.esprit.autoloc.repositories.EmployerRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,22 +17,22 @@ public class EmployerServiceImpl implements IEmployerService {
     }
 
     @Override
-    public employer create(employer entity) {
+    public Employer create(Employer entity) {
         return repository.save(entity);
     }
 
     @Override
-    public List<employer> getAll() {
+    public List<Employer> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public Optional<employer> getById(Long id) {
+    public Optional<Employer> getById(Long id) {
         return repository.findById(id);
     }
 
     @Override
-    public employer update(Long id, employer entity) {
+    public Employer update(Long id, Employer entity) {
         if (!repository.existsById(id)) {
             throw new IllegalArgumentException("Employer introuvable avec l'identifiant : " + id);
         }

@@ -23,7 +23,7 @@ public class Agence {
     private String telephone;
 
     @OneToMany(mappedBy = "agence")
-    private List<employer> employes = new ArrayList<>();
+    private List<Employer> employes = new ArrayList<>();
 
     @OneToMany(mappedBy = "agence")
     private List<Vehicule> vehicules = new ArrayList<>();

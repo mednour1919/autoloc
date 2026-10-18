@@ -1,18 +1,18 @@
 package tn.esprit.autoloc.repositories;
 
-import tn.esprit.autoloc.entities.employer;
+import tn.esprit.autoloc.entities.Employer;
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface EmployerRepository extends JpaRepository<employer, Long>{
-    employer save(employer entity);
+public interface EmployerRepository extends JpaRepository<Employer, Long>{
+    Employer save(Employer entity);
 
-    List<employer> findAll();
+    List<Employer> findAll();
 
-    Optional<employer> findById(Long id);
+    Optional<Employer> findById(Long id);
 
     boolean existsById(Long id);
 

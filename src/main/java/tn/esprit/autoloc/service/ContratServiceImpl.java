@@ -1,5 +1,7 @@
 package tn.esprit.autoloc.service;
 
+
+
 import tn.esprit.autoloc.entities.Contrat;
 import tn.esprit.autoloc.repositories.ContratRepository;
 import org.springframework.stereotype.Service;
@@ -7,11 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-/**
- *
- */
+
 @Service
-class ContratServiceImpl implements IContratService {
+public class ContratServiceImpl implements IContratService {
 
     private final ContratRepository repository;
 

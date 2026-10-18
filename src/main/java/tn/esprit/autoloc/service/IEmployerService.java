@@ -1,18 +1,18 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.entities.employer;
+import tn.esprit.autoloc.entities.Employer;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IEmployerService {
-    employer create(employer entity);
+    Employer create(Employer entity);
 
-    List<employer> getAll();
+    List<Employer> getAll();
 
-    Optional<employer> getById(Long id);
+    Optional<Employer> getById(Long id);
 
-    employer update(Long id, employer entity);
+    Employer update(Long id, Employer entity);
 
     void delete(Long id);
 }

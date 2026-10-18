@@ -31,7 +31,7 @@ public class Paiement {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private ModePaiment modePaiement;
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne (fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "id_contrat", unique = true)
     private Contrat contrat;
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-class PaiementServiceImpl implements IPaiementService {
+ class PaiementServiceImpl implements IPaiementService {
 
     private final PaiementRepository repository;
 
@@ -36,8 +36,6 @@ class PaiementServiceImpl implements IPaiementService {
         if (!repository.existsById(id)) {
             throw new IllegalArgumentException("Paiement introuvable avec l'identifiant : " + id);
         }
-        // On force l'identifiant de l'entité reçue à correspondre à celui du chemin.
-        // Adapte ce setter si ton attribut ID ou son setter porte un autre nom.
         entity.setIdPaiement(id);
         return repository.save(entity);
     }
