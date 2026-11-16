@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.autoloc.entities.Agence;
+import tn.esprit.autoloc.service.AgenceServiceImpl;
 import tn.esprit.autoloc.service.IAgenceService;
 
 import java.util.List;
@@ -49,5 +50,10 @@ public class AgenceController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+    @PostMapping("/avec-vehicules")
+    public Agence ajouterAgenceEtAffecterVehicules(
+            @RequestBody Agence agence) {
+        return service.ajouterAgenceEtAffecterVehicules(agence);
     }
 }

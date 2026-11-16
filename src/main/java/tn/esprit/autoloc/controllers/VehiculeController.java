@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.autoloc.entities.Vehicule;
 import tn.esprit.autoloc.service.IVehiculeService;
+import tn.esprit.autoloc.service.VehiculeServiceImpl;
+
 
 import java.util.List;
 
@@ -50,5 +52,25 @@ public class VehiculeController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
+    @PutMapping("/{idVehicule}/affecter-equipement/{idEquipement}")
+    public Vehicule affecterEquipement(
+            @PathVariable Long idVehicule,
+            @PathVariable Long idEquipement) {
+
+        return service.affecterEquipement(
+                idVehicule, idEquipement);
+    }
+
+    @PutMapping("/{idVehicule}/desaffecter-equipement/{idEquipement}")
+    public Vehicule desaffecterEquipement(
+            @PathVariable Long idVehicule,
+            @PathVariable Long idEquipement) {
+
+        return service.desaffecterEquipement(
+                idVehicule, idEquipement);
+    }
+
 }
 

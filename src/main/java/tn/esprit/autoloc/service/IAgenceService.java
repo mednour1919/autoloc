@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface IAgenceService {
     Agence create(Agence entity);
+    Agence ajouterAgenceEtAffecterVehicules(Agence agence);
 
     List<Agence> getAll();
 

@@ -15,4 +15,6 @@ public interface IEmployerService {
     Employer update(Long id, Employer entity);
 
     void delete(Long id);
+    Employer affecterEmployer(Long idEmployer, Long idAgence);
+    Employer desaffecterEmployer(Long idEmployer);
 }

@@ -1,8 +1,11 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.entities.Employer;
-import tn.esprit.autoloc.repositories.EmployerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import tn.esprit.autoloc.entities.Agence;
+import tn.esprit.autoloc.entities.Employer;
+import tn.esprit.autoloc.repositories.AgenceRepository;
+import tn.esprit.autoloc.repositories.EmployerRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +14,12 @@ import java.util.Optional;
 public class EmployerServiceImpl implements IEmployerService {
 
     private final EmployerRepository repository;
+    private final AgenceRepository agenceRepository;
 
-    public EmployerServiceImpl(EmployerRepository repository) {
+    public EmployerServiceImpl(EmployerRepository repository,
+                               AgenceRepository agenceRepository) {
         this.repository = repository;
+        this.agenceRepository = agenceRepository;
     }
 
     @Override
@@ -36,8 +42,6 @@ public class EmployerServiceImpl implements IEmployerService {
         if (!repository.existsById(id)) {
             throw new IllegalArgumentException("Employer introuvable avec l'identifiant : " + id);
         }
-        // On force l'identifiant de l'entité reçue à correspondre à celui du chemin.
-        // Adapte ce setter si ton attribut ID ou son setter porte un autre nom.
         entity.setIdEmployer(id);
         return repository.save(entity);
     }
@@ -49,5 +53,30 @@ public class EmployerServiceImpl implements IEmployerService {
         }
         repository.deleteById(id);
     }
-}
 
+    @Override
+    @Transactional
+    public Employer desaffecterEmployer(Long idEmployer) {
+        Employer employer = repository.findById(idEmployer)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Employer introuvable avec l'identifiant : " + idEmployer));
+
+        employer.setAgence(null);
+        return repository.save(employer);
+    }
+
+    @Override
+    @Transactional
+    public Employer affecterEmployer(Long idEmployer, Long idAgence) {
+        Employer employer = repository.findById(idEmployer)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Employer introuvable avec l'identifiant : " + idEmployer));
+
+        Agence agence = agenceRepository.findById(idAgence)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Agence introuvable avec l'identifiant : " + idAgence));
+
+        employer.setAgence(agence);
+        return repository.save(employer);
+    }
+}

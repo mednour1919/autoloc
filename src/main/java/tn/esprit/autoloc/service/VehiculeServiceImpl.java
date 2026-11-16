@@ -1,8 +1,11 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.entities.Vehicule;
-import tn.esprit.autoloc.repositories.VehiculeRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import tn.esprit.autoloc.entities.Equipement;
+import tn.esprit.autoloc.entities.Vehicule;
+import tn.esprit.autoloc.repositories.EquipementRepository;
+import tn.esprit.autoloc.repositories.VehiculeRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +14,12 @@ import java.util.Optional;
 public class VehiculeServiceImpl implements IVehiculeService {
 
     private final VehiculeRepository repository;
+    private final EquipementRepository equipementRepository;
 
-    public VehiculeServiceImpl(VehiculeRepository repository) {
+    public VehiculeServiceImpl(VehiculeRepository repository,
+                               EquipementRepository equipementRepository) {
         this.repository = repository;
+        this.equipementRepository = equipementRepository;
     }
 
     @Override
@@ -36,8 +42,6 @@ public class VehiculeServiceImpl implements IVehiculeService {
         if (!repository.existsById(id)) {
             throw new IllegalArgumentException("Vehicule introuvable avec l'identifiant : " + id);
         }
-        // On force l'identifiant de l'entité reçue à correspondre à celui du chemin.
-        // Adapte ce setter si ton attribut ID ou son setter porte un autre nom.
         entity.setIdVehicule(id);
         return repository.save(entity);
     }
@@ -49,5 +53,36 @@ public class VehiculeServiceImpl implements IVehiculeService {
         }
         repository.deleteById(id);
     }
-}
 
+    @Override
+    @Transactional
+    public Vehicule affecterEquipement(Long idVehicule, Long idEquipement) {
+        Vehicule vehicule = repository.findById(idVehicule)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Vehicule introuvable avec l'identifiant : " + idVehicule));
+
+        Equipement equipement = equipementRepository.findById(idEquipement)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Equipement introuvable avec l'identifiant : " + idEquipement));
+
+        if (!vehicule.getEquipements().contains(equipement)) {
+            vehicule.getEquipements().add(equipement);
+        }
+        return repository.save(vehicule);
+    }
+
+    @Override
+    @Transactional
+    public Vehicule desaffecterEquipement(Long idVehicule, Long idEquipement) {
+        Vehicule vehicule = repository.findById(idVehicule)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Vehicule introuvable avec l'identifiant : " + idVehicule));
+
+        Equipement equipement = equipementRepository.findById(idEquipement)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Equipement introuvable avec l'identifiant : " + idEquipement));
+
+        vehicule.getEquipements().remove(equipement);
+        return repository.save(vehicule);
+    }
+}
