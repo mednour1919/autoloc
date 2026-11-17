@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.service;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.autoloc.entities.Equipement;
@@ -7,11 +8,16 @@ import tn.esprit.autoloc.entities.Vehicule;
 import tn.esprit.autoloc.repositories.EquipementRepository;
 import tn.esprit.autoloc.repositories.VehiculeRepository;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class VehiculeServiceImpl implements IVehiculeService {
+
+    private static final DateTimeFormatter FORMAT_DATE =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     private final VehiculeRepository repository;
     private final EquipementRepository equipementRepository;
@@ -84,5 +90,31 @@ public class VehiculeServiceImpl implements IVehiculeService {
 
         vehicule.getEquipements().remove(equipement);
         return repository.save(vehicule);
+    }
+
+    // Toutes les 60 secondes, en commençant 5 secondes après le démarrage
+    @Scheduled(initialDelay = 5000, fixedRate = 60000)
+    public void actualiserEtatVehicules() {
+        List<Vehicule> vehicules = repository.findAll();
+        String date = LocalDateTime.now().format(FORMAT_DATE);
+
+        System.out.println("==================================");
+        System.out.println("ACTUALISATION DES VEHICULES");
+        System.out.println("Nombre total de véhicules : " + vehicules.size());
+        System.out.println("Date et heure : " + date);
+        System.out.println("==================================");
+    }
+
+    // Chaque lundi à 9h00, heure de Tunis
+    @Scheduled(cron = "0 0 9 ? * MON", zone = "Africa/Tunis")
+    public void genererRapportVehicules() {
+        List<Vehicule> vehicules = repository.findAll();
+        String date = LocalDateTime.now().format(FORMAT_DATE);
+
+        System.out.println("==================================");
+        System.out.println("RAPPORT HEBDOMADAIRE DES VEHICULES");
+        System.out.println("Nombre total de véhicules : " + vehicules.size());
+        System.out.println("Date et heure de génération : " + date);
+        System.out.println("==================================");
     }
 }

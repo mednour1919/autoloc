@@ -6,7 +6,9 @@ import tn.esprit.autoloc.entities.Agence;
 import tn.esprit.autoloc.entities.Vehicule;
 import tn.esprit.autoloc.repositories.AgenceRepository;
 import tn.esprit.autoloc.repositories.VehiculeRepository;
-
+import org.springframework.scheduling.annotation.Scheduled;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -81,5 +83,22 @@ public class AgenceServiceImpl implements IAgenceService {
         }
 
         return nouvelleAgence;
+    }
+    @Scheduled(fixedDelay = 120000)
+    public void suivreNombreAgences() {
+
+        List<Agence> agences = repository.findAll();
+
+        int total = agences.size();
+
+        String date = LocalDateTime.now().format(
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
+        );
+
+        System.out.println("==================================");
+        System.out.println("SUIVI DES AGENCES");
+        System.out.println("Nombre total d'agences : " + total);
+        System.out.println("Date et heure : " + date);
+        System.out.println("==================================");
     }
 }
