@@ -1,3 +1,4 @@
+
 package tn.esprit.autoloc;
 
 import org.junit.jupiter.api.Test;
@@ -9,5 +10,4 @@ class AutolocApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

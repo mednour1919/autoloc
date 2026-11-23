@@ -1,3 +1,4 @@
+
 package tn.esprit.autoloc;
 
 import org.springframework.boot.SpringApplication;
@@ -11,5 +12,4 @@ public class AutolocApplication {
     public static void main(String[] args) {
         SpringApplication.run(AutolocApplication.class, args);
     }
-
 }
